@@ -71,8 +71,8 @@ jobs:
         run: |
           echo "Changing to configuration directory: $CONFIG..."
           cd  "$CONFIG"
-          cp ../kernel_patches/xxksu/ksu_hooks.patch ./
-          patch -p1 -F 3 < ksu_hooks.patch 
+          cp ../kernel_patches/xxksu/10_ksu_hooks.patch ./
+          patch -p1 -F 3 < 10_ksu_hooks.patch 
           cp ../kernel_patches/xxksu/ksu_getname_flags_kernel.patch ./
           patch -p1 -F 3 < ksu_getname_flags_kernel.patch
 
