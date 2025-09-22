@@ -66,21 +66,14 @@ jobs:
           cd "$CONFIG"
           echo "Adding KernelSU..."
           curl -LSs "https://raw.githubusercontent.com/5ec1cff/KernelSU/main/kernel/setup.sh" | bash -s main
+
+      - name: Apply KSU Hooks
+        run: |
+          echo "Changing to configuration directory: $CONFIG..."
+          cd  "$CONFIG"
+          cp ../kernel_patches/xxksu/ksu_hooks.patch ./
+          patch -p1 -F 3 < ksu_hooks.patch 
       
-
-#      - name: Apply KSU Hooks
-#        run: |
-#          echo "Changing to configuration directory: $CONFIG..."
-#          cd "$CONFIG"
-#          cp ../kernel_patches/sultan/ksu_hooks.patch ./
-#          patch -p1 -F 3 < ksu_hooks.patch 
-
- #     - name: Apply KSU Syscall Hooks
- #       run: |
- #         echo "Changing to configuration directory: $CONFIG..."
- #         cd "$CONFIG"
- #         cp ../kernel_patches/sultan/syscall_hooks.patch ./
- #         patch -p1 -F 3 < syscall_hooks.patch 
 
 
       - name: Getting KernelSU Version
