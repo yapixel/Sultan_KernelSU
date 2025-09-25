@@ -83,27 +83,10 @@ jobs:
       
       - name: Getting KernelSU Version
         run: |
-         cd "$CONFIG/KernelSU/kernel"
-         # Ensure we're on the correct branch (master, as default in backslashxx/KernelSU)
-         git checkout master || echo "Warning: Could not checkout master, proceeding with HEAD" >&2
-         # Add upstream remote if not present
-         if ! git remote | grep -q upstream; then
-         git remote add upstream https://github.com/tiann/KernelSU.git
-         fi
-         # Fetch upstream main branch
-         git fetch upstream main
-         # Get commits ahead of tiann/KernelSU:main (using fork's master branch)
-         COMMITS_AHEAD=$(git rev-list --count ^upstream/main...master 2>/dev/null || echo "0")
-         # Get total commit count
-         BASE_VERSION=10200
-         COMMIT_COUNT=$(/usr/bin/git rev-list --count HEAD)
-         # Calculate KSU_VERSION as 10200 + COMMIT_COUNT - COMMITS_AHEAD
-         KSU_VERSION=$(expr $COMMIT_COUNT "+" $BASE_VERSION "-" $COMMITS_AHEAD)
-         echo "KSUVER=$KSU_VERSION" >> $GITHUB_ENV
-         echo "Commits ahead: $COMMITS_AHEAD, KSUVER: $KSU_VERSION"
-         shell: /usr/bin/bash -e {0}
-         env:
-         CONFIG: android_kernel_google_zuma"
+          cd "$CONFIG/KernelSU/kernel"
+          # Get hardcoded version from Makefile
+          KSU_VERSION=$(grep -E '[[:space:]]*-DKSU_VERSION=' Makefile | cut -d'=' -f2 | tr -d ' ' 
+          echo "KSUVER=$KSU_VERSION" >> $GITHUB_ENV
 
 
   #    - name: Getting KernelSU Version
