@@ -178,9 +178,14 @@ jobs:
           echo "Creating zip file $ZIP_NAME..."
           zip -r "../$ZIP_NAME" ./*
 
+      - name: List Files to Upload
+        run: |
+          echo "Files to be uploaded:"
+          ls -l *.zip
+
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: kernel-${{ inputs.codename }}-xxksu
+          name: kernel-${{ inputs.codename }}-xxksu-${{ inputs.release_tag }}
           path: |
             *.zip
