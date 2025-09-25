@@ -3,6 +3,10 @@ name: Build and Release Sultan Kernels
 permissions:
   contents: write  # Allow writing to repository contents (for pushing tags)
   actions: write   # Allows triggering actions
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.inputs.make_release }}
+  cancel-in-progress: true
   
 on:
   workflow_dispatch:
@@ -61,7 +65,7 @@ jobs:
       release_tag: ${{ needs.generate-tag.outputs.new_tag }}
 
   build-kernel-zuma-kowsu:
-    uses: ./.github/workflows/sultan_mksu.yml
+    uses: ./.github/workflows/sultan_kowsu.yml
     secrets: inherit
     needs: generate-tag
     with:
@@ -87,8 +91,8 @@ jobs:
     needs:
       - generate-tag
       - build-kernel-zuma-xxksu
-      - build-kernel-zuma-mksu
       - build-kernel-zuma-kowsu
+      - build-kernel-zuma-mksu
     if: ${{ inputs.make_release }}
     env:
       GH_TOKEN: ${{ github.token }}
@@ -102,7 +106,6 @@ jobs:
         - This build is based on the latest Sultan kernel commits as of build date
         - Always verify your device's Android version matches the kernel target (Android 14)
         - Recommended to use kernels released within 30 days of official Sultan updates
-        
         
         Managers:
         -> https://github.com/tiann/KernelSU
@@ -155,7 +158,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
-      # Display Files Uploaded
       - name: Display Files Uploaded
         run: |
           echo "GitHub release created with the following files:"
