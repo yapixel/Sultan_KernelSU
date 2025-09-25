@@ -80,11 +80,17 @@ jobs:
           patch -p1 --forward < min_scope_syscall_hooks_v1.5.patch
 
       
+      
       - name: Getting KernelSU Version
         run: |
           cd "$CONFIG/KernelSU/kernel"
           KSU_VERSION=$(grep -E '^-DKSU_VERSION=' Makefile | cut -d'=' -f2)
+          if [ -z "$KSU_VERSION" ]; then
+          echo "Error: KSU_VERSION not found in Makefile, defaulting to 12126" >&2
+          KSU_VERSION=12126
+          fi
           echo "KSUVER=$KSU_VERSION" >> $GITHUB_ENV
+
 
 
   #    - name: Getting KernelSU Version
