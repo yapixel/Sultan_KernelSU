@@ -31,7 +31,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Generate and Create.New Tag
+      - name: Generate and Create New Tag
         id: generate-tag
         run: |
           # Fetch the latest tag from this repository
@@ -107,7 +107,7 @@ jobs:
         id: notes
         run: |
           BUILD_DATE=$(date '+%Y-%m-%d %H:%M:%S UTC')
-          RELEASE_NOTES="This release contains KernelSU and KSU variants\n\n⚠️ **COMPATIBILITY NOTICE** ⚠️\nPlease ensure compatibility by comparing release dates with official Sultan kernel releases:\n- Check official Sultan releases: https://github.com/kerneltoast/android_kernel_google_gs201/releases\n- This build is based on the latest Sultan kernel commits as of build date\n- Always verify your device's Android version matches the kernel target (Android 14)\n- Recommended to use kernels released within 30 days of official Sultan updates\n\nManagers:\n-> https://github.com/backslashxx/KernelSU\n-> https://github.com/5ec1cff/KernelSU\n-> https://github.com/KOWX712/KernelSU\n\nFeatures:\n[+] KernelSU Managers\n[+] Maphide LineageOS Detections\n[+] Futile Maphide for jit-zygote-cache Detections\n[+] Magic Mount Support\n\n📅 **Release Date Compatibility Check:**\n- Built on: $BUILD_DATE"
+          RELEASE_NOTES="This release contains KernelSU and KSU variants\n\n⚠️ **COMPATIBILITY NOTICE** ⚠️\nPlease ensure compatibility by comparing release dates with official Sultan kernel releases:\n- Check official Sultan releases: https://github.com/kerneltoast/android_kernel_google_gs201/releases\n- This build is based on the latest Sultan kernel commits as of build date\n- Always verify your device's Android version matches the kernel target (Android 14)\n- Recommended to use kernels released within 30 days of official Sultan updates\n\nManagers:\n- https://github.com/backslashxx/KernelSU\n- https://github.com/5ec1cff/KernelSU\n- https://github.com/KOWX712/KernelSU\n\nFeatures:\n- KernelSU Managers\n- Maphide LineageOS Detections\n- Futile Maphide for jit-zygote-cache Detections\n- Magic Mount Support\n\n📅 **Release Date Compatibility Check:**\n- Built on: $BUILD_DATE"
           echo "notes<<EOF" >> $GITHUB_OUTPUT
           echo "$RELEASE_NOTES" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
