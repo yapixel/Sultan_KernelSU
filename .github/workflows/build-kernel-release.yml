@@ -21,7 +21,7 @@ jobs:
       new_tag: ${{ steps.generate-tag.outputs.new_tag }}
     env:
       REPO_OWNER: yapixel
-      REPO_NAME: Sultan_KernelSU_SUSFS
+      REPO_NAME: Sultan_KernelSU
       GH_TOKEN: ${{ github.token }}
     steps:
       - name: Checkout code
