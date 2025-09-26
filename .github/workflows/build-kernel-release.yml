@@ -108,7 +108,7 @@ jobs:
         - Recommended to use kernels released within 30 days of official Sultan updates
         
         Managers:
-        -> https://github.com/tiann/KernelSU
+        -> https://github.com/backslashxx/KernelSU
         -> https://github.com/5ec1cff/KernelSU
         -> https://github.com/KOWX712/KernelSU
         
