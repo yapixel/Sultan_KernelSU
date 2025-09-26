@@ -65,7 +65,7 @@ jobs:
           echo "Changing to configuration directory: $CONFIG..."
           cd "$CONFIG"
           echo "Adding KernelSU..."
-          curl -LSs "https://raw.githubusercontent.com/ruaue/KernelSU/master/kernel/setup.sh" | bash -s master
+          curl -LSs "https://raw.githubusercontent.com/yapixel/KowSU/12196/kernel/setup.sh" | bash -s 12196
 
       - name: Apply Manual Hook Patches
         run: |
