@@ -67,6 +67,8 @@ jobs:
           echo "Adding KernelSU..."
           curl -LSs "https://raw.githubusercontent.com/KOWX712/KernelSU/master/kernel/setup.sh" | bash -s master
           cd ./KernelSU 
+          git config --global user.email "you@example.com"
+          git config --global user.name "Your Name"
           git revert 37ef0d27067d3d7e7bf07a80547a1949864789c4
 
           
