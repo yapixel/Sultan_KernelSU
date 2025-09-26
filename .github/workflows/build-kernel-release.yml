@@ -31,7 +31,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Generate and Create New Tag
+      - name: Generate and Create.New Tag
         id: generate-tag
         run: |
           # Fetch the latest tag from this repository
@@ -97,34 +97,20 @@ jobs:
     env:
       GH_TOKEN: ${{ github.token }}
       RELEASE_NAME: "*TEST BUILD* Sultan Kernels With KernelSU/MKSU *TEST BUILD*"
-      RELEASE_NOTES: |
-        This release contains KernelSU and KSU variants
-        
-        ⚠️ **COMPATIBILITY NOTICE** ⚠️
-        Please ensure compatibility by comparing release dates with official Sultan kernel releases:
-        - Check official Sultan releases: https://github.com/kerneltoast/android_kernel_google_gs201/releases
-        - This build is based on the latest Sultan kernel commits as of build date
-        - Always verify your device's Android version matches the kernel target (Android 14)
-        - Recommended to use kernels released within 30 days of official Sultan updates
-        
-        Managers:
-        -> https://github.com/backslashxx/KernelSU
-        -> https://github.com/5ec1cff/KernelSU
-        -> https://github.com/KOWX712/KernelSU
-        
-        Features:
-        [+] KernelSU Managers 
-        [+] Maphide LineageOS Detections
-        [+] Futile Maphide for jit-zygote-cache Detections
-        [+] Magic Mount Support
-        
-        📅 **Release Date Compatibility Check:**
-        - Built on: $(date '+%Y-%m-%d %H:%M:%S UTC')
-
     steps:
       # Checkout the code
       - name: Checkout code
         uses: actions/checkout@v3
+
+      # Generate dynamic release notes with current date
+      - name: Generate Release Notes
+        id: notes
+        run: |
+          BUILD_DATE=$(date '+%Y-%m-%d %H:%M:%S UTC')
+          RELEASE_NOTES="This release contains KernelSU and KSU variants\n\n⚠️ **COMPATIBILITY NOTICE** ⚠️\nPlease ensure compatibility by comparing release dates with official Sultan kernel releases:\n- Check official Sultan releases: https://github.com/kerneltoast/android_kernel_google_gs201/releases\n- This build is based on the latest Sultan kernel commits as of build date\n- Always verify your device's Android version matches the kernel target (Android 14)\n- Recommended to use kernels released within 30 days of official Sultan updates\n\nManagers:\n-> https://github.com/backslashxx/KernelSU\n-> https://github.com/5ec1cff/KernelSU\n-> https://github.com/KOWX712/KernelSU\n\nFeatures:\n[+] KernelSU Managers\n[+] Maphide LineageOS Detections\n[+] Futile Maphide for jit-zygote-cache Detections\n[+] Magic Mount Support\n\n📅 **Release Date Compatibility Check:**\n- Built on: $BUILD_DATE"
+          echo "notes<<EOF" >> $GITHUB_OUTPUT
+          echo "$RELEASE_NOTES" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
 
       # Download Artifacts
       - name: Download Artifacts
@@ -139,7 +125,7 @@ jobs:
           tag_name: ${{ needs.generate-tag.outputs.new_tag }}  # Use the generated tag for the release
           prerelease: true  # Mark the release as a pre-release
           release_name: ${{ env.RELEASE_NAME }}  # Pass the RELEASE_NAME to the action
-          body: ${{ env.RELEASE_NOTES }}  # Pass the RELEASE_NOTES to the action
+          body: ${{ steps.notes.outputs.notes }}  # Use the dynamic notes from the step
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
