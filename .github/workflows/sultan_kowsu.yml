@@ -68,13 +68,13 @@ jobs:
           curl -LSs "https://raw.githubusercontent.com/KOWX712/KernelSU/master/kernel/setup.sh" | bash -s master
 
           
-#      - name: Apply Manual Hook Patches
-#        run: |
-#          echo "Changing to configuration directory: $CONFIG..."
-#          cd "$CONFIG"
-#          echo "Applying manual hook patches..."
-#          cp ../kernel_patches/syscall_hook/min_scope_syscall_hooks_v1.5.patch ./
-#          patch -p1 --forward < min_scope_syscall_hooks_v1.5.patch
+      - name: Apply Manual Hook Patches
+        run: |
+          echo "Changing to configuration directory: $CONFIG..."
+          cd "$CONFIG"
+          echo "Applying manual hook patches..."
+          cp ../kernel_patches/syscall_hook/min_scope_syscall_hooks_v1.5.patch ./
+          patch -p1 --forward < min_scope_syscall_hooks_v1.5.patch
 
       - name: Getting KernelSU Version
         run: |
@@ -84,12 +84,12 @@ jobs:
           KSU_VERSION=$(expr $COMMIT_COUNT "+" $BASE_VERSION)
           echo "KSUVER=$KSU_VERSION" >> $GITHUB_ENV
 
-      - name: Apply Hide Stuff Patches
-        run: |
-          echo "Changing to configuration directory: $CONFIG..."
-          cd "$CONFIG"
-          cp ../kernel_patches/69_hide_stuff.patch ./
-          patch -p1 -F 3 < 69_hide_stuff.patch 
+#      - name: Apply Hide Stuff Patches
+#        run: |
+#          echo "Changing to configuration directory: $CONFIG..."
+#          cd "$CONFIG"
+#          cp ../kernel_patches/69_hide_stuff.patch ./
+#          patch -p1 -F 3 < 69_hide_stuff.patch 
 
       - name: Add IPSet Configuration Settings
         run: |
