@@ -66,19 +66,15 @@ jobs:
           cd "$CONFIG"
           echo "Adding KernelSU..."
           curl -LSs "https://raw.githubusercontent.com/KOWX712/KernelSU/master/kernel/setup.sh" | bash -s master
-          cd ./KernelSU 
-          git config --global user.email "you@example.com"
-          git config --global user.name "Your Name"
-          git revert 37ef0d27067d3d7e7bf07a80547a1949864789c4
 
           
-      - name: Apply Manual Hook Patches
-        run: |
-          echo "Changing to configuration directory: $CONFIG..."
-          cd "$CONFIG"
-          echo "Applying manual hook patches..."
-          cp ../kernel_patches/syscall_hook/min_scope_syscall_hooks_v1.5.patch ./
-          patch -p1 --forward < min_scope_syscall_hooks_v1.5.patch
+#      - name: Apply Manual Hook Patches
+#        run: |
+#          echo "Changing to configuration directory: $CONFIG..."
+#          cd "$CONFIG"
+#          echo "Applying manual hook patches..."
+#          cp ../kernel_patches/syscall_hook/min_scope_syscall_hooks_v1.5.patch ./
+#          patch -p1 --forward < min_scope_syscall_hooks_v1.5.patch
 
       - name: Getting KernelSU Version
         run: |
