@@ -67,8 +67,16 @@ jobs:
           echo "Adding KernelSU..."
           curl -LSs "https://raw.githubusercontent.com/KOWX712/KernelSU/master/kernel/setup.sh" | bash -s master
 
-          
-      - name: Apply Manual Hook Patches
+      - name: Apply KSU Hooks
+        run: |
+          echo "Changing to configuration directory: $CONFIG..."
+          cd "$CONFIG"
+          # Apply additional patch
+          cp ../kernel_patches/sultan/manual_hooks.patch ./
+          patch -p1 -F 3 < manual_hooks.patch
+
+      
+      - name: Apply Syscall Hook Patches
         run: |
           echo "Changing to configuration directory: $CONFIG..."
           cd "$CONFIG"
@@ -84,12 +92,12 @@ jobs:
           KSU_VERSION=$(expr $COMMIT_COUNT "+" $BASE_VERSION)
           echo "KSUVER=$KSU_VERSION" >> $GITHUB_ENV
 
-#      - name: Apply Hide Stuff Patches
-#        run: |
-#          echo "Changing to configuration directory: $CONFIG..."
-#          cd "$CONFIG"
-#          cp ../kernel_patches/69_hide_stuff.patch ./
-#          patch -p1 -F 3 < 69_hide_stuff.patch 
+      - name: Apply Hide Stuff Patches
+        run: |
+          echo "Changing to configuration directory: $CONFIG..."
+          cd "$CONFIG"
+          cp ../kernel_patches/69_hide_stuff.patch ./
+          patch -p1 -F 3 < 69_hide_stuff.patch 
 
       - name: Add IPSet Configuration Settings
         run: |
