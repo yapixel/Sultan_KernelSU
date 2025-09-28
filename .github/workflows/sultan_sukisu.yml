@@ -67,24 +67,24 @@ jobs:
           echo "Changing to configuration directory: $CONFIG..."
           cd "$CONFIG"
           echo "Adding KernelSU..."
-          curl -LSs "https://raw.githubusercontent.com/SukiSU-Ultra/SukiSU-Ultra/main/kernel/setup.sh" | bash -s 0af1ab28450a1df548850b4a05ba82a5cbef478e
+          curl -LSs "https://raw.githubusercontent.com/SukiSU-Ultra/SukiSU-Ultra/main/kernel/setup.sh" | bash -s main
 
- #     - name: Apply KSU Hooks
- #       run: |
- #         echo "Changing to configuration directory: $CONFIG..."
- #         cd "$CONFIG"
- #         # Apply additional patch
- #         cp ../SukiSU_patch/hooks/scope_min_manual_hooks_v1.5.patch ./
- #         patch -p1 --forward < scope_min_manual_hooks_v1.5.patch
-
-      
-      - name: Apply Syscall Hook Patches
+      - name: Apply KSU Hooks
         run: |
           echo "Changing to configuration directory: $CONFIG..."
           cd "$CONFIG"
-          echo "Applying manual hook patches..."
-          cp ../SukiSU_patch/hooks/syscall_hooks.patch ./
-          patch -p1 --forward -F 3 < syscall_hooks.patch
+          # Apply additional patch
+          cp ../SukiSU_patch/hooks/scope_min_manual_hooks_v1.5.patch ./
+          patch -p1 --forward < scope_min_manual_hooks_v1.5.patch
+
+      
+ #     - name: Apply Syscall Hook Patches
+ #       run: |
+ #         echo "Changing to configuration directory: $CONFIG..."
+ #         cd "$CONFIG"
+ #         echo "Applying manual hook patches..."
+ #         cp ../SukiSU_patch/hooks/syscall_hooks.patch ./
+ #         patch -p1 --forward -F 3 < syscall_hooks.patch
 
       - name: Getting KernelSU Version
         run: |
