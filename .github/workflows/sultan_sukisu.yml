@@ -74,9 +74,10 @@ jobs:
           echo "Changing to configuration directory: $CONFIG..."
           cd "$CONFIG"
           # Apply additional patch
-          cp ../SukiSU_patch/hooks/scope_min_manual_hooks_v1.5.patch ./
-          patch -p1 --forward < scope_min_manual_hooks_v1.5.patch
-
+          #cp ../SukiSU_patch/hooks/scope_min_manual_hooks_v1.5.patch ./
+          #patch -p1 --forward < scope_min_manual_hooks_v1.5.patch
+          cp ../kernel_patches/syscall_hook/min_scope_syscall_hooks_v1.4.patch ./
+          patch -p1 --forward < min_scope_syscall_hooks_v1.4.patch
       
  #     - name: Apply Syscall Hook Patches
  #       run: |
