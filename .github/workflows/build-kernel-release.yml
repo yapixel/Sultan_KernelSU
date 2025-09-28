@@ -123,7 +123,7 @@ jobs:
         id: define-release-notes
         run: |
           RELEASE_NOTES=$(cat << 'EOF'
-          This release contains KernelSU and MKSU variants with SUSFS v1.5.10
+          This release contains KernelSU variants 
           
           ⚠️ **COMPATIBILITY NOTICE** ⚠️
           Please ensure compatibility by comparing release dates with official Sultan kernel releases:
@@ -132,8 +132,6 @@ jobs:
           - Always verify your device's Android version matches the kernel target (Android 14)
           - Recommended to use kernels released within 30 days of official Sultan updates
           
-          Module: 
-          -> https://github.com/sidex15/ksu_module_susfs
           
           Managers:
           -> https://github.com/backslashxx/KernelSU
