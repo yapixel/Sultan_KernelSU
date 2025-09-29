@@ -82,7 +82,7 @@ jobs:
       kernel_version: "6.1"
       release_tag: ${{ needs.generate-tag.outputs.new_tag }}
 
-  build-kernel-zuma-sukisu:
+  build-kernel-zuma-sukiksu:
     uses: ./.github/workflows/sultan_sukisu.yml
     secrets: inherit
     needs: generate-tag
@@ -100,7 +100,7 @@ jobs:
       - build-kernel-zuma-xxksu
       - build-kernel-zuma-kowsu
       - build-kernel-zuma-mksu
-      - build-kernel-zuma-sukisu
+      - build-kernel-zuma-sukiksu
     
     if: ${{ inputs.make_release }}
     env:
