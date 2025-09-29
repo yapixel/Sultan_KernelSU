@@ -83,7 +83,7 @@ jobs:
       release_tag: ${{ needs.generate-tag.outputs.new_tag }}
 
   build-kernel-zuma-sukiksu:
-    uses: ./.github/workflows/sultan_sukisu.yml
+    uses: ./.github/workflows/sultan_sukiksu.yml
     secrets: inherit
     needs: generate-tag
     with:
