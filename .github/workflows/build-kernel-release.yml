@@ -82,6 +82,17 @@ jobs:
       kernel_version: "6.1"
       release_tag: ${{ needs.generate-tag.outputs.new_tag }}
 
+  build-kernel-zuma-rksu:
+    uses: ./.github/workflows/sultan_rksu.yml
+    secrets: inherit
+    needs: generate-tag
+    with:
+      codename: "zuma"
+      repo: "android_kernel_google_zuma"
+      android_version: "android14"
+      kernel_version: "6.1"
+      release_tag: ${{ needs.generate-tag.outputs.new_tag }}
+
   build-kernel-zuma-sukiksu:
     uses: ./.github/workflows/sultan_sukiksu.yml
     secrets: inherit
@@ -100,6 +111,7 @@ jobs:
       - build-kernel-zuma-xxksu
       - build-kernel-zuma-kowsu
       - build-kernel-zuma-mksu
+      - build-kernel-zuma-rksu
       - build-kernel-zuma-sukiksu
     
     if: ${{ inputs.make_release }}
@@ -138,6 +150,7 @@ jobs:
           -> https://github.com/5ec1cff/KernelSU
           -> https://github.com/KOWX712/KernelSU
           -> https://github.com/SukiSU-Ultra/SukiSU-Ultra
+          -> https://github.com/rsuntk/KernelSU
           
           Features:
           [+] KernelSU Managers v1.0.5
