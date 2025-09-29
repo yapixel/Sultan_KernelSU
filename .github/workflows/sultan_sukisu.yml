@@ -1,5 +1,5 @@
 
-name: Sultan SukiSUUltra
+name: Sultan SukiKSU
 permissions:
   contents: write  # Allow writing to repository contents (for pushing tags)
   actions: write   # Allows triggering actions
@@ -59,7 +59,6 @@ jobs:
 
           git clone https://github.com/TheWildJames/AnyKernel3.git -b "$ANYKERNEL_BRANCH"
           git clone https://github.com/yapixel/kernel_patches.git
-          git clone https://github.com/SukiSU-Ultra/SukiSU_patch.git
           git clone https://github.com/kerneltoast/${{ inputs.repo }}
 
       - name: Add KernelSU
@@ -67,25 +66,17 @@ jobs:
           echo "Changing to configuration directory: $CONFIG..."
           cd "$CONFIG"
           echo "Adding KernelSU..."
-          curl -LSs "https://raw.githubusercontent.com/SukiSU-Ultra/SukiSU-Ultra/main/kernel/setup.sh" | bash -s main
+          curl -LSs "https://raw.githubusercontent.com/yapixel/SukiKSU/master/kernel/setup.sh" | bash -s master
 
       - name: Apply KSU Hooks
         run: |
           echo "Changing to configuration directory: $CONFIG..."
           cd "$CONFIG"
           # Apply additional patch
-          #cp ../SukiSU_patch/hooks/scope_min_manual_hooks_v1.5.patch ./
-          #patch -p1 --forward < scope_min_manual_hooks_v1.5.patch
+        
           cp ../kernel_patches/syscall_hook/min_scope_syscall_hooks_v1.5.patch ./
           patch -p1 --forward < min_scope_syscall_hooks_v1.5.patch
       
- #     - name: Apply Syscall Hook Patches
- #       run: |
- #         echo "Changing to configuration directory: $CONFIG..."
- #         cd "$CONFIG"
- #         echo "Applying manual hook patches..."
- #         cp ../SukiSU_patch/hooks/syscall_hooks.patch ./
- #         patch -p1 --forward -F 3 < syscall_hooks.patch
 
       - name: Getting KernelSU Version
         run: |
@@ -182,7 +173,7 @@ jobs:
         run: |
           echo "Navigating to AnyKernel3 directory..."
           cd ./AnyKernel3
-          ZIP_NAME="SukiSU-${{ env.KSUVER }}-zuma_A16_Sultan-${{ env.LATEST_SULTAN_TAG }}_SukiSU-${{ inputs.release_tag }}.zip"
+          ZIP_NAME="SukiKSU-${{ env.KSUVER }}-zuma_A16_Sultan-${{ env.LATEST_SULTAN_TAG }}_SukiKSU-${{ inputs.release_tag }}.zip"
           echo "Creating zip file $ZIP_NAME..."
           zip -r "../$ZIP_NAME" ./*
 
