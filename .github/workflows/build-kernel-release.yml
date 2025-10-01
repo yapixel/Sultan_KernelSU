@@ -124,7 +124,7 @@ jobs:
       - build-kernel-zuma-mksu
       - build-kernel-zuma-rksu
       - build-kernel-zuma-sukiksu
-   #   - build-kernel-zuma-sukisu-ultra
+    #- build-kernel-zuma-sukisu-ultra
     
     if: ${{ inputs.make_release }}
     env:
