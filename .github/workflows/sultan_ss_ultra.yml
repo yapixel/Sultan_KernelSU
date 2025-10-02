@@ -58,6 +58,7 @@ jobs:
 
           git clone https://github.com/TheWildJames/AnyKernel3.git -b "$ANYKERNEL_BRANCH"
           git clone https://github.com/yapixel/kernel_patches.git
+          git clone https://github.com/SukiSU-Ultra/SukiSU_patch.git
           git clone https://github.com/kerneltoast/${{ inputs.repo }}
 
       - name: Add KernelSU
@@ -73,9 +74,10 @@ jobs:
           cd "$CONFIG"
           # Apply additional patch
         
-          cp ../kernel_patches/syscall_hook/min_scope_syscall_hooks_v1.5.patch ./
-          patch -p1 --forward < min_scope_syscall_hooks_v1.5.patch
-      
+          #cp ../kernel_patches/syscall_hook/min_scope_syscall_hooks_v1.5.patch ./
+          #patch -p1 --forward < min_scope_syscall_hooks_v1.5.patch
+          cp ../SukiSU_patch/hooks/scope_min_manual_hooks_v1.5.patch ./
+          patch -p1 --forward < scope_min_manual_hooks_v1.5.patch
 
       - name: Getting KernelSU Version
         run: |
