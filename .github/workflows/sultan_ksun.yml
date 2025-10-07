@@ -1,4 +1,4 @@
-name: Sultan SukiSU-Ultra
+name: Sultan KSU-NEXT 
 permissions:
   contents: write  # Allow writing to repository contents (for pushing tags)
   actions: write   # Allows triggering actions
@@ -23,7 +23,7 @@ on:
         type: string
   
 jobs:
-  build-kernel-sultan-sukisu:
+  build-kernel-sultan-ksun:
     runs-on: ubuntu-latest
     steps:
       - name: Installing dependencies
@@ -58,7 +58,6 @@ jobs:
 
           git clone https://github.com/TheWildJames/AnyKernel3.git -b "$ANYKERNEL_BRANCH"
           git clone https://github.com/yapixel/kernel_patches.git
-          git clone https://github.com/SukiSU-Ultra/SukiSU_patch.git
           git clone https://github.com/kerneltoast/${{ inputs.repo }}
 
       - name: Add KernelSU
@@ -66,7 +65,7 @@ jobs:
           echo "Changing to configuration directory: $CONFIG..."
           cd "$CONFIG"
           echo "Adding KernelSU..."
-          curl -LSs "https://raw.githubusercontent.com/SukiSU-Ultra/SukiSU-Ultra/main/kernel/setup.sh" | bash -s main
+          curl -LSs "https://github.com/pershoot/KernelSU-Next/next/kernel/setup.sh" | bash -s next
 
       - name: Apply KSU Hooks
         run: |
@@ -74,10 +73,9 @@ jobs:
           cd "$CONFIG"
           # Apply additional patch
         
-          #cp ../kernel_patches/syscall_hook/min_scope_syscall_hooks_v1.5.patch ./
-          #patch -p1 --forward < min_scope_syscall_hooks_v1.5.patch
-          cp ../SukiSU_patch/hooks/scope_min_manual_hooks_v1.5.patch ./
-          patch -p1 --forward < scope_min_manual_hooks_v1.5.patch
+          cp ../kernel_patches/syscall_hook/min_scope_syscall_hooks_v1.5.patch ./
+          patch -p1 --forward < min_scope_syscall_hooks_v1.5.patch
+          
 
       - name: Getting KernelSU Version
         run: |
@@ -187,6 +185,6 @@ jobs:
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: kernel-${{ inputs.codename }}-ssuu-${{ inputs.release_tag }}
+          name: kernel-${{ inputs.codename }}-ksun-${{ inputs.release_tag }}
           path: |
             *.zip
